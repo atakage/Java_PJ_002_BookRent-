@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="bookrent.persistence.BooksDTO"
+			alias="BooksDTO" />
+		<typeAlias type="bookrent.persistence.UsersDTO"
+			alias="UsersDTO" />	
+			
+		<typeAlias type="bookrent.persistence.RentBookDTO"
+			alias="RentBookDTO" />		
+	</typeAliases>
+
+
+	<environments default="oracleConnection">
+
+		<environment id="oracleConnection">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver" />
+				<property name="url"
+					value="jdbc:oracle:thin:@localhost:1521:xe" />
+				<property name="username" value="admin" />
+				<property name="password" value="1234" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="bookrent/config/mapper/books-mapper.xml" />
+		<mapper resource="bookrent/config/mapper/users-mapper.xml"/>
+		<mapper resource="bookrent/config/mapper/rentbook-mapper.xml"/>
+	</mappers>
+
+
+
+</configuration>

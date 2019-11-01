@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookrent.dao.UsersDao">
+
+	<select id="getMaxCode" resultType="String">
+		SELECT MAX(u_code) FROM
+		tbl_users
+	</select>
+
+	<select id="selectAll" resultType="UsersDTO">
+		SELECT * FROM tbl_users
+	</select>
+
+
+	<select id="selectByNameATel" resultType="UsersDTO"
+		parameterType="map">
+
+		SELECT * FROM tbl_users WHERE u_name LIKE '%' ||
+		#{u_name} || '%'
+		AND u_tel
+		LIKE '%' || #{u_tel} || '%'
+
+	</select>
+
+	<select id="selectByCode" resultType="UsersDTO">
+		SELECT * FROM
+		tbl_users WHERE U_CODE = #{u_code}
+
+	</select>
+
+	<insert id="insert" parameterType="UsersDTO">
+		INSERT INTO tbl_users(U_CODE,
+		U_NAME,
+		U_TEL,
+		U_ADDR) VALUES(#{u_code}, #{u_name}, #{u_tel}, #{u_addr})
+
+	</insert>
+
+	<update id="update" parameterType="UsersDTO">
+
+		UPDATE tbl_users SET
+		U_NAME = #{u_name},
+		U_TEL = #{u_tel},
+		U_ADDR = #{u_addr}
+		WHERE U_CODE = #{u_code}
+	</update>
+
+
+</mapper>

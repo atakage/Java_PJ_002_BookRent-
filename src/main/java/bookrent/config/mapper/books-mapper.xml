@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookrent.dao.BooksDao">
+
+	<select id="getMaxCode" resultType="String">
+		SELECT MAX(B_CODE) FROM
+		tbl_books
+	</select>
+
+	<select id="selectAll" resultType="BooksDTO">
+		SELECT * FROM tbl_books
+	</select>
+
+
+	<select id="selectByNameAAuther" resultType="BooksDTO"
+		parameterType="map">
+		SELECT * FROM tbl_books WHERE b_name LIKE '%' ||
+		#{b_name} || '%'
+		AND b_auther LIKE '%' || #{b_auther} || '%'
+	</select>
+
+	<select id="selectByName" resultType="BooksDTO">
+		SELECT * FROM tbl_books
+		WHERE B_NAME = #{b_name}
+	</select>
+
+	<select id="selectByCode" resultType="BooksDTO">
+		SELECT * FROM tbl_books
+		WHERE B_CODE = #{b_code}
+	</select>
+
+	<insert id="insert" parameterType="BooksDTO">
+		INSERT INTO tbl_books(B_CODE,
+		B_NAME,
+		B_AUTHER,
+		B_COMP,
+		B_YEAR,
+		B_IPRICE,
+		B_RPRICE) VALUES(#{b_code},
+		#{b_name}, #{b_auther}, #{b_comp}, #{b_year}, #{b_iprice},
+		#{b_rprice})
+	</insert>
+	<update id="update" parameterType="BooksDTO">
+
+		UPDATE tbl_books SET
+		B_NAME	= #{b_name},
+		B_AUTHER = #{b_auther},
+		B_COMP = #{b_comp},
+		B_YEAR = #{b_year},
+		B_IPRICE = #{b_iprice},
+		B_RPRICE = #{b_rprice} WHERE B_CODE = #{b_code}
+
+	</update>
+
+
+
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="bookrent.dao.RentBookDao">
+	<select id="selectAll" resultType="RentBookDTO">
+
+		SELECT * FROM tbl_rent_book
+
+	</select>
+
+
+	<select id="selectByRYN" resultType="RentBookDTO">
+
+		SELECT * FROM tbl_rent_book WHERE RENT_RETUR_YN = 'N'
+
+	</select>
+	
+	<select id="selectByCodeForR" resultType="RentBookDTO">
+
+		SELECT * FROM tbl_rent_book WHERE RENT_RETUR_YN = 'N' AND RENT_BCODE = #{rent_bcode}
+
+	</select>
+
+
+	<select id="selectByBCode" resultType="RentBookDTO">
+
+		SELECT * FROM tbl_rent_book WHERE RENT_BCODE = #{rent_bcode}
+
+	</select>
+	
+	<select id="selectBySEQForDelete" resultType="RentBookDTO">
+	
+		SELECT * FROM tbl_rent_book WHERE RENT_SEQ = #{rent_seq} AND RENT_RETUR_YN = 'Y'
+	
+	</select>
+	
+	
+
+	<insert id="insert" parameterType="RentBookDTO">
+
+
+		INSERT INTO
+		tbl_rent_book(RENT_SEQ,
+		RENT_DATE,
+		RENT_RETURN_DATE,
+		RENT_BCODE,
+		RENT_UCODE,
+		RENT_RETUR_YN,
+		RENT_POINT) VALUES(SEQ_RENT.NEXTVAL,
+		#{rent_date}, #{rent_return_date}, #{rent_bcode}, #{rent_ucode},
+		#{rent_retur_yn}, #{rent_point})
+
+	</insert>
+
+
+
+	<update id="update" parameterType="RentBookDTO">
+		UPDATE tbl_rent_book SET
+
+		RENT_RETUR_YN = #{rent_retur_yn},
+		RENT_POINT = #{rent_point}
+
+		WHERE RENT_BCODE = #{rent_bcode}
+	</update>
+
+
+	
+	<delete id="deleteBySEQ" parameterType="RentBookDTO">
+	
+		DELETE FROM tbl_rent_book WHERE RENT_SEQ = #{rent_seq}
+	
+	</delete>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
